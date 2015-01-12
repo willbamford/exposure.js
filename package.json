@@ -1,0 +1,37 @@
+{
+  "name": "exposure.js",
+  "version": "0.0.1",
+  "description": "Library for managing access to media on social networks",
+  "author": "Will Bamford",
+  "license": "ISC",
+  "homepage": "https://github.com/WebSeed/exposure.js",
+  "bugs": {
+    "url": "https://github.com/WebSeed/exposure.js/issues"
+  },
+  "main": "src/exposure.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WebSeed/exposure.js.git"
+  },
+  "keywords": [
+    "video",
+    "photo",
+    "media",
+    "social",
+    "oauth",
+    "facebook",
+    "google",
+    "window",
+    "instagram",
+    "flickr"
+  ],
+  "devDependencies": {
+    "jasmine-core": "^2.1.3",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.4"
+  }
+}

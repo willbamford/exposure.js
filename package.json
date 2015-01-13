@@ -10,7 +10,7 @@
   },
   "main": "src/exposure.js",
   "scripts": {
-    "test": "karma start"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "karma-firefox-launcher": "^0.1.4",
     "karma-jasmine": "^0.3.4",
     "karma-junit-reporter": "^0.2.2",
-    "karma-phantomjs-launcher": "^0.1.4"
+    "karma-phantomjs-launcher": "^0.1.4",
+    "phantomjs": "^1.9.13"
   }
 }

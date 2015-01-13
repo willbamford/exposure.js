@@ -35,7 +35,7 @@ module.exports = function (config) {
     // - PhantomJS
     // - IE (only Windows)
     // CLI --browsers Chrome,Firefox,Safari
-    browsers: [process.env.TRAVIS ? 'Firefox' : 'Chrome'],
+    browsers: ['PhantomJS'],
 
     // Auto run tests on start (when browsers are captured) and exit
     // CLI --single-run --no-single-run
@@ -53,6 +53,7 @@ module.exports = function (config) {
       'karma-jasmine',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
+      'karma-phantomjs-launcher',
       'karma-junit-reporter',
       'karma-browserify'
     ]

@@ -1,4 +1,5 @@
-# exposure.js
+# exposure.js [![Build Status](https://secure.travis-ci.org/WebSeed/exposure.js.svg?branch=master)](http://travis-ci.org/WebSeed/exposure.js)
+
 Library for managing access to media on social networks
 
 ## Install

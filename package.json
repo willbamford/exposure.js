@@ -10,7 +10,7 @@
   },
   "main": "src/exposure.js",
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+    "test": "./node_modules/karma/bin/karma start"
   },
   "repository": {
     "type": "git",

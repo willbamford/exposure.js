@@ -52,3 +52,7 @@ exposure.facebook.logout();
 ```
 
 exposure.oauth(clientId, redirectUri, oauthProxy, method = [popup|page|iframe]);
+
+## Credits
+
+A lot of credit should go to https://github.com/MrSwitch/hello.js

@@ -10,7 +10,8 @@ module.exports = function (config) {
 
     files: [
       'src/*.js',
-      'test/*.js'
+      'test/custom-matchers.js',
+      'test/*-spec.js'
     ],
 
     preprocessors: {

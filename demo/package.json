@@ -1,7 +1,7 @@
 {
-  "name": "exposure.js",
+  "name": "exposure-demo.js",
   "version": "0.0.1",
-  "description": "Library for managing access to media on social networks",
+  "description": "Demo for exposure.js",
   "author": "Will Bamford",
   "license": "ISC",
   "homepage": "https://github.com/WebSeed/exposure.js",

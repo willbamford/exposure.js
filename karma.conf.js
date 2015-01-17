@@ -6,17 +6,18 @@ module.exports = function (config) {
 
     basePath: './',
 
-    frameworks: ['browserify', 'jasmine'],
+    frameworks: ['browserify', 'jasmine-ajax', 'jasmine'],
 
     files: [
-      'src/*.js',
+      'src/exposure.js',
+      'src/lib/request.js',
       'test/custom-matchers.js',
-      'test/*-spec.js'
+      'test/**/*-spec.js'
     ],
 
     preprocessors: {
-      'src/*.js': ['browserify'],
-      'test/*.js': ['browserify']
+      'src/**/*.js': ['browserify'],
+      'test/**/*.js': ['browserify']
     },
 
     // use dots reporter, as travis terminal does not support escaping sequences
@@ -55,6 +56,7 @@ module.exports = function (config) {
 
     plugins: [
       'karma-jasmine',
+      'karma-jasmine-ajax',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
       'karma-phantomjs-launcher',

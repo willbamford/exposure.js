@@ -1,19 +1,11 @@
 module.exports = function (grunt) {
 
+  'use strict';
+
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
     aws: grunt.file.readJSON('aws-auth.json'),
-    sass: {
-      options: {
-        sourceMap: true
-      },
-      dist: {
-        files: {
-          'css/main.css': 'scss/main.scss'
-        }
-      }
-    },
     aws_s3: {
       options: {
         accessKeyId: '<%= aws.key %>', // Use the variables
@@ -35,20 +27,16 @@ module.exports = function (grunt) {
 
         files: [
           {
-            src: 'index.html',
-            dest: 'index.html'
+            expand: true,
+            cwd: 'demo/',
+            src: ['**'],
+            dest: 'demo/'
           },
           {
             expand: true,
-            cwd: 'hello.js/src',
+            cwd: 'dist/',
             src: ['**'],
-            dest: 'hello.js/src'
-          },
-          {
-            expand: true,
-            cwd: 'hello.js/src/modules',
-            src: ['**'],
-            dest: 'hello.js/src/modules'
+            dest: 'dist/'
           }
         ]
       }
@@ -56,6 +44,5 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-aws-s3');
-
   grunt.registerTask('default', ['aws_s3']);
 };

@@ -1,7 +1,6 @@
 'use strict';
 
 require('es5-shim');
-var Promise = require('es6-promise').Promise;
 
 var uuid = 0;
 

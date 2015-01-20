@@ -1,6 +1,7 @@
 'use strict';
 
 require('es5-shim');
+var utils = require('./utils.js');
 var Promise = require('es6-promise').Promise;
 
 module.exports = {
@@ -33,7 +34,7 @@ function getXhr(url, type, transform) {
         var data = xhr.responseText;
         var response = {
           code: xhr.status,
-          headers: formatHeaders(xhr.getAllResponseHeaders()),
+          headers: utils.transformHeadersStringToObject(xhr.getAllResponseHeaders()),
           data: (type === 'json' ? JSON.parse(data) : data)
         };
         
@@ -50,9 +51,10 @@ function getXhr(url, type, transform) {
 var getJsonpCount = 0;
 var getJsonp = function (url, transform) {
   
-  var name = 'exposureJsonp_' + (++getJsonpCount);
-  var timeout = 10000;
-  url += '&' + key + '=' + name;
+  var key = 'callback';
+  var name = 'jsonpExposure' + (++getJsonpCount);
+  var timeout = 10000;  
+  url = utils.addQueryStringParamToUrl(url, key, value);
   var timeoutTrigger = setTimeout(function () {
     window[name] = function () {};
     callback({
@@ -79,18 +81,3 @@ var getJsonp = function (url, transform) {
   script.src = url;
   document.getElementsByTagName('head')[0].appendChild(script);
 };
-
-function formatHeaders(s) {
-  var headers = {};
-  if (s) {
-    var a = s.split(/\r?\n/);
-    a.forEach(function (h) {
-      var i = h.indexOf(':');
-      if (i !== -1) {
-        var kv = [h.slice(0, i).trim(), h.slice(i + 1).trim()];
-        headers[kv[0]] = kv[1];
-      }
-    });
-  }
-  return headers;
-}

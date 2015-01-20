@@ -34,7 +34,7 @@ function getXhr(url, type, transform) {
         var data = xhr.responseText;
         var response = {
           code: xhr.status,
-          headers: utils.transformHeadersStringToObject(xhr.getAllResponseHeaders()),
+          headers: utils.transformHeaders(xhr.getAllResponseHeaders()),
           data: (type === 'json' ? JSON.parse(data) : data)
         };
         

@@ -4,7 +4,7 @@ require('es5-shim');
 
 module.exports = {
 
-  transformHeadersStringToObject: function (s) {
+  transformHeaders: function (s) {
     var headers = {};
     if (s) {
       var a = s.split(/\r?\n/);

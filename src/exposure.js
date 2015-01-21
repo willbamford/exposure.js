@@ -2,28 +2,46 @@
 
 require('es5-shim');
 
-var uuid = 0;
+var modules = {}; // Service modules
+
+var p = {
+  
+  init: function (opts) {
+    
+    var self = this;
+    opts = opts || {};
+    
+    Object.keys(modules).forEach(function (id) {
+      if (opts[id])
+        self[id] = modules[id].create(opts[id]);
+    });
+    
+    return this;
+  }
+  
+  
+};
 
 module.exports = {
 
+  addModule: function (module) {
+    modules[module.id] = module;
+    return this;
+  },
+  
+  removeModules: function () {
+    modules = {};
+  },
+  
+  getModule: function (id) {
+    return modules[id];
+  },
+  
+  getModules: function () {
+    return modules;
+  },
+
   create: function (opts) {
-    
-    return Object.create({
-      
-      init: function () {
-        this.uuid = uuid;
-        this.opts = opts;
-        return this;
-      },
-  
-      login: function () {
-  
-      },
-  
-      logout: function () {
-  
-      }
-  
-    }).init();
+    return Object.create(p).init(opts);
   }
 };

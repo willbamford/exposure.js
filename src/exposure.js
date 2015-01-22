@@ -7,17 +7,21 @@ var modules = {}; // Service modules
 var p = {
   
   services: {},
+  redirectUrl: undefined,
   
-  init: function (opts) {
+  init: function (opts, serviceOpts) {
+    
+    var self = this;
     
     opts = opts || {};
-    var self = this;
-    var services = opts.services || {};
+    serviceOpts = serviceOpts || {};
+
+    this.redirectUrl = opts.redirectUrl || window.location.href;
     Object.keys(modules).forEach(function (id) {
-      if (services[id]) {
-        var service = modules[id].create(services[id]);
+      if (serviceOpts[id]) {
+        var service = modules[id].create(serviceOpts[id]);
         self.services[id] = service;
-        self[id] = service; // For convenience
+        self[id] = service;
       }
     });
     
@@ -45,7 +49,7 @@ module.exports = {
     return modules;
   },
 
-  create: function (opts) {
-    return Object.create(p).init(opts);
+  create: function (opts, serviceOpts) {
+    return Object.create(p).init(opts, serviceOpts);
   }
 };

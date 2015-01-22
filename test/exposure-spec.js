@@ -57,10 +57,20 @@ describe('Exposure', function () {
       expect(exposure1).not.toBe(exposure2);
     });
     
+    it('should be possible to set the OAUTH redirect URL', function () {
+      var exposure = Exposure.create(
+        {
+          redirectUrl: 'http://www.example.com/oauth'
+        }
+      );
+      expect(exposure.redirectUrl).toEqual('http://www.example.com/oauth');
+    });
+    
     it('should set client IDs for services', function () {
       
-      var exposure = Exposure.create({
-        services: {
+      var exposure = Exposure.create(
+        null,
+        {
           friendface: {
             clientId: 'friendface-client-id'
           },
@@ -71,7 +81,7 @@ describe('Exposure', function () {
             clientId: 'module-does-not-exist'
           }
         }
-      });
+      );
       
       expect(exposure.friendface.clientId).toBe('friendface-client-id');
       expect(exposure.services.friendface.clientId).toBe('friendface-client-id');

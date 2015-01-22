@@ -60,21 +60,30 @@ describe('Exposure', function () {
     it('should set client IDs for services', function () {
       
       var exposure = Exposure.create({
-        friendface: {
-          clientId: 'friendface-client-id'
-        },
-        doodlePlus: {
-          clientId: 'doodle-plus-client-id'
-        },
-        moduleDoesNotExist: {
-          clientId: 'module-does-not-exist'
+        services: {
+          friendface: {
+            clientId: 'friendface-client-id'
+          },
+          doodlePlus: {
+            clientId: 'doodle-plus-client-id'
+          },
+          moduleDoesNotExist: {
+            clientId: 'module-does-not-exist'
+          }
         }
       });
       
       expect(exposure.friendface.clientId).toBe('friendface-client-id');
+      expect(exposure.services.friendface.clientId).toBe('friendface-client-id');
+      
       expect(exposure.doodlePlus.clientId).toBe('doodle-plus-client-id');
+      expect(exposure.services.doodlePlus.clientId).toBe('doodle-plus-client-id');
+      
       expect(exposure.moduleDoesNotExist).toBe(undefined);
+      expect(exposure.services.moduleDoesNotExist).toBe(undefined);
+      
       expect(exposure.twinner).toBe(undefined);
+      expect(exposure.services.twinner).toBe(undefined);
     });
   });
   

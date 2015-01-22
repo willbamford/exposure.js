@@ -6,19 +6,23 @@ var modules = {}; // Service modules
 
 var p = {
   
+  services: {},
+  
   init: function (opts) {
     
-    var self = this;
     opts = opts || {};
-    
+    var self = this;
+    var services = opts.services || {};
     Object.keys(modules).forEach(function (id) {
-      if (opts[id])
-        self[id] = modules[id].create(opts[id]);
+      if (services[id]) {
+        var service = modules[id].create(services[id]);
+        self.services[id] = service;
+        self[id] = service; // For convenience
+      }
     });
     
     return this;
   }
-  
   
 };
 

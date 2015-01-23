@@ -2,25 +2,29 @@
 
 var Exposure = require('../src/exposure.js');
 
-var Friendface = {
-  id: 'friendface',
-  create: function (opts) {
-    return {clientId: opts.clientId || ''};
-  }
-};
+var modules = {
 
-var Twinner = {
-  id: 'twinner',
-  create: function (opts) {
-    return {clientId: opts.clientId || ''};
-  }
-};
+  Friendface: {
+    id: 'friendface',
+    create: function (clientId) {
+      return {clientId: clientId};
+    }
+  },
 
-var DoodlePlus = {
-  id: 'doodlePlus',
-  create: function (opts) {
-    return {clientId: opts.clientId || ''};
+  Twinner: {
+    id: 'twinner',
+    create: function (clientId) {
+      return {clientId: clientId};
+    }
+  },
+
+  DoodlePlus: {
+    id: 'doodlePlus',
+    create: function (clientId) {
+      return {clientId: clientId}
+    }
   }
+
 };
 
 describe('Exposure', function () {
@@ -28,11 +32,11 @@ describe('Exposure', function () {
   describe('addModule / getModule', function () {
     
     it('should be able to register and fetch a (service) module', function () {      
-      Exposure.addModule(Friendface).addModule(Twinner);
-      expect(Exposure.getModule('friendface')).toBe(Friendface);
-      expect(Exposure.getModule('twinner')).toBe(Twinner);
+      Exposure.addModule(modules.Friendface).addModule(modules.Twinner);
+      expect(Exposure.getModule('friendface')).toBe(modules.Friendface);
+      expect(Exposure.getModule('twinner')).toBe(modules.Twinner);
       Exposure.removeModules();
-      expect(Object.keys(Exposure.getModules()).length).toEqual(0);
+      expect(Object.keys(Exposure.modules).length).toEqual(0);
     });
     
   });
@@ -41,9 +45,9 @@ describe('Exposure', function () {
 
     beforeEach(function () {
       Exposure
-        .addModule(Friendface)
-        .addModule(Twinner)
-        .addModule(DoodlePlus);
+        .addModule(modules.Friendface)
+        .addModule(modules.Twinner)
+        .addModule(modules.DoodlePlus);
     });
     
     afterEach(function () {
@@ -51,53 +55,44 @@ describe('Exposure', function () {
     });
 
     it('should create a new instance', function () {
-      var exposure1 = Exposure.create();
-      var exposure2 = Exposure.create();
-      expect(exposure1).not.toBeNull();
-      expect(exposure1).not.toBe(exposure2);
+      var x1 = Exposure.create();
+      var x2 = Exposure.create();
+      expect(x1).not.toBeNull();
+      expect(x1).not.toBe(x2);
     });
     
-    it('should be possible to set the OAUTH redirect URL', function () {
-      var exposure = Exposure.create(
-        {
-          redirectUrl: 'http://www.example.com/oauth'
-        }
-      );
-      expect(exposure.redirectUrl).toEqual('http://www.example.com/oauth');
+    it('should be possible to set the OAuth redirect URL', function () {
+      var x = Exposure.create();
+      expect(x.redirectUri).toBe(window.location.href);
+      
+      x = Exposure.create({ redirectUri: 'http://www.example.com/oauth' });
+      expect(x.redirectUri).toEqual('http://www.example.com/oauth');
     });
     
     it('should set client IDs for services', function () {
       
-      var exposure = Exposure.create(
+      var x = Exposure.create(
         null,
         {
-          friendface: {
-            clientId: 'friendface-client-id'
-          },
-          doodlePlus: {
-            clientId: 'doodle-plus-client-id'
-          },
-          moduleDoesNotExist: {
-            clientId: 'module-does-not-exist'
-          }
+          friendface: 'friendface-client-id',
+          doodlePlus: 'doodle-plus-client-id',
+          moduleDoesNotExist: 'module-does-not-exist'
         }
       );
       
-      expect(exposure.friendface.clientId).toBe('friendface-client-id');
-      expect(exposure.services.friendface.clientId).toBe('friendface-client-id');
+      expect(x.friendface.clientId).toBe('friendface-client-id');
+      expect(x.services.friendface.clientId).toBe('friendface-client-id');
       
-      expect(exposure.doodlePlus.clientId).toBe('doodle-plus-client-id');
-      expect(exposure.services.doodlePlus.clientId).toBe('doodle-plus-client-id');
+      expect(x.doodlePlus.clientId).toBe('doodle-plus-client-id');
+      expect(x.services.doodlePlus.clientId).toBe('doodle-plus-client-id');
       
-      expect(exposure.moduleDoesNotExist).toBe(undefined);
-      expect(exposure.services.moduleDoesNotExist).toBe(undefined);
+      expect(x.moduleDoesNotExist).toBe(undefined);
+      expect(x.services.moduleDoesNotExist).toBe(undefined);
       
-      expect(exposure.twinner).toBe(undefined);
-      expect(exposure.services.twinner).toBe(undefined);
+      expect(x.twinner).toBe(undefined);
+      expect(x.services.twinner).toBe(undefined);
     });
+  
   });
   
-  // exposure.facebook.login();
-  // exposure.facebook.getAlbums();
-  // exposure.google.getPhotos().then();
 });
